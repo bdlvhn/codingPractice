@@ -80,3 +80,44 @@ def solution(n, lost, reserve):
     return len(list(filter(lambda x: x>0, student)))
 
 
+"""2016년"""
+import datetime
+
+def solution(a, b):
+    return datetime.datetime(2016,a,b).strftime('%a').upper()
+
+
+"""가운데 글자 가져오기"""
+def solution(s):
+    return s[(len(s)-1)//2:len(s)//2+1]
+
+
+"""3진법 뒤집기"""
+import math
+def solution(n):
+    s = ''
+    answer = 0
+    for i in range(int(math.log(n,3)),-1,-1):
+        s = s + str(n//(3**i))
+        n -= (3**i)*(n//(3**i))
+    s = s[::-1]
+    print(s)
+    for j in range(len(s)):
+        answer += int(s[-(j+1)])*(3**j)
+    return answer
+
+
+"""같은 숫자는 싫어"""
+from collections import deque
+
+def solution(arr):
+    ans = [-1]
+    arr = deque(arr)
+    while(len(arr)>0):
+        a = arr.popleft()
+        if ans[-1] != a:
+            ans.append(a)
+            
+    return ans[1:]
+
+
