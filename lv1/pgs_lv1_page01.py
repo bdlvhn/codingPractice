@@ -121,3 +121,63 @@ def solution(arr):
     return ans[1:]
 
 
+"""같은 숫자는 싫어"""
+ def solution(arr, divisor):
+    ans = list(filter(lambda x: x%divisor==0,arr))
+    return sorted(ans) if len(ans)>0 else [-1]
+
+
+"""두 정수 사이의 합"""
+def solution(a, b):
+    return sum([i for i in range(min(a,b),max(a,b)+1)])
+
+
+"""문자열 내 마음대로 정렬하기"""
+def solution(strings, n):
+    return sorted(strings,key=lambda x:(x[n],x))
+
+
+"""문자열 내 p와 y의 개수"""
+def solution(s):
+    return s.lower().count('p') == s.lower().count('y')
+
+
+"""문자열 내림차순으로 배치하기"""
+def solution(s):
+    return ''.join(sorted([i for i in s],reverse=True))
+
+
+"""문자열 다루기 기본"""
+def solution(s):
+    return (len(s) == 4 or len(s) == 6) and s.isdigit()
+
+
+"""서울에서 김서방 찾기"""
+def solution(seoul):
+    return "김서방은 {}에 있다".format(seoul.index("Kim"))
+
+
+"""소수 찾기"""
+def isPrime(n):
+    a = [False,False] + [True]*(n-1)
+    primes=[]
+
+    for i in range(2,n+1):
+        if a[i]:
+            primes.append(i)
+        for j in range(2*i, n+1, i):
+            a[j] = False
+    return primes
+
+def solution(n):
+    return len(isPrime(n))
+
+
+"""수박수박수박수박수박수?"""
+def solution(n):
+    return "수박"*(n//2) + "수"*(n%2)
+
+
+"""문자열을 정수로 바꾸기"""
+def solution(s):
+    return int(s[1:]) if s[0]=='+' else int(s)
