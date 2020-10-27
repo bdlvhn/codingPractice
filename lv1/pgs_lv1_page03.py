@@ -36,7 +36,7 @@ def solution(dartResult):
             a[i] = a[i] * dict[val[-1]]
     return sum(a)
 
-"""참고 
+"""참고 코드
 import re
 
 def solution(dartResult):
