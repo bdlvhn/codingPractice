@@ -122,3 +122,56 @@ def solution(numbers, hand):
 				position[dict[hand][1]] = dict[str(num)]
 
 	return ''.join(ans)
+
+
+"""최대공약수와 최소공배수"""
+from math import gcd
+def solution(n, m):
+    return [gcd(n,m),n*m//gcd(n,m)]
+
+
+"""콜라츠 추측"""
+def solution(num):
+    cnt = 0
+    while num>1 and cnt<500:
+    	if num%2==0:
+    		num = num/2
+    	else:
+    		num = num*3 + 1
+    	cnt += 1
+
+    return cnt if cnt<500 else -1
+
+
+"""평균 구하기"""
+def solution(arr):
+    return sum(arr)/len(arr)
+
+
+"""하샤드 수"""
+def solution(x):
+    return True if x%sum([int(i) for i in str(x)])==0 else False
+
+
+"""핸드폰 번호 가리기"""
+def solution(phone_number):
+    return "*"*(len(phone_number)-4)+phone_number[-4:]
+
+
+"""행렬의 덧셈"""
+def solution(arr1, arr2):
+    return [[c+d for c,d in zip(a,b)] for a,b in zip(arr1,arr2)]
+
+
+"""x만큼 간격이 있는 n개의 숫자"""
+def solution(x, n):
+    return [x*i for i in range(1,n+1)]
+
+
+"""직사각형 별찍기"""
+a, b = map(int, input().strip().split(' '))
+ans = ''
+for i in range(b):
+	ans = ans + '*' * a
+	ans = ans + '\n'
+print(ans)
