@@ -175,3 +175,24 @@ for i in range(b):
 	ans = ans + '*' * a
 	ans = ans + '\n'
 print(ans)
+
+
+"""예산"""
+"""참고 코드
+def solution(d, budget):
+    d.sort()
+    cnt = 0
+    for i in d :
+        budget -= i
+        if budget < 0 :
+               break
+        cnt += 1
+    answer = cnt
+    return answer
+"""
+
+
+"""[1차]비밀지도"""
+def solution(n, arr1, arr2):
+    l = [format(a|b,'b').rjust(n,'0').replace('1','#').replace('0',' ') for a,b in zip(arr1,arr2)]
+    return l
