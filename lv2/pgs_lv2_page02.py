@@ -71,3 +71,14 @@ def solution(s):
             return False
     return True if cnt == 0 else False
 
+
+"""다음 큰 숫자"""
+import math
+def solution(n):
+    a = format(n,'b').count('1')
+    for i in range(n+1,2**int(math.log2(n)+2)):
+        if a == format(i,'b').count('1'):
+            return i
+        
+        
+"""
