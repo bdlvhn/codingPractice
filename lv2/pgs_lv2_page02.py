@@ -42,3 +42,32 @@ def solution(A,B):
     return ans
 
 
+"""가장 큰 정사각형 찾기"""
+from itertools import chain
+def solution(board):
+    for i in range(1,len(board)):
+        for j in range(1,len(board[0])):
+            if board[i][j] == 1:
+                board[i][j] = min(board[i-1][j-1],board[i-1][j],board[i][j-1]) + 1
+                
+    return max(list(chain(*board)))**2
+
+
+"""최댓값과 최솟값"""
+def solution(s):
+    l = list(map(int,s.split(' ')))
+    return ''.join([str(min(l)),' ',str(max(l))])
+
+
+"""올바른 괄호"""
+def solution(s):
+    cnt = 0
+    for i in range(len(s)):
+        if s[i] == '(':
+            cnt +=1
+        else:
+            cnt -=1
+        if cnt<0:
+            return False
+    return True if cnt == 0 else False
+
