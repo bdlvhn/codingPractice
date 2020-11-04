@@ -81,4 +81,40 @@ def solution(n):
             return i
         
         
+"""튜플"""
+import re
+
+def solution(s):
+    p = re.compile('(\d+[,\d]*)')
+    l = p.findall(s)
+    l = [list(map(int,elm.split(','))) for elm in sorted(l,key=lambda x:len(x))]
+    ans = [list(set(l[0]))[0]]
+    
+    for i in range(len(l)-1):
+        ans.append(list(set(l[i+1]) - set(l[i]))[0])
+    
+    return ans
+"""참고 코드
+def solution(s):
+
+    s = Counter(re.findall('\d+', s))
+    return list(map(int, [k for k, v in sorted(s.items(), key=lambda x: x[1], reverse=True)]))
+
+import re
+from collections import Counter
 """
+
+
+"""행렬의 곱셈"""
+def solution(arr1, arr2):
+    arr2 = [i for i in zip(*arr2)]
+    ans = []
+    for x1 in arr1:
+        w = []
+        for x2 in arr2:
+            w.append(sum([a*b for a,b in zip(x1,x2)]))
+        ans.append(w)
+    
+    return ans
+
+
