@@ -118,3 +118,15 @@ def solution(arr1, arr2):
     return ans
 
 
+"""영어 끝말잇기"""
+def solution(n, words):
+    wordStack = []
+    for idx, word in enumerate(words):
+        if wordStack:
+            if (word not in wordStack) and wordStack[-1][-1] == word[0]:
+                wordStack.append(word)
+            else:
+                return [(idx%n)+1,(idx//n)+1]
+        else:
+            wordStack.append(word)
+    return [0,0]
