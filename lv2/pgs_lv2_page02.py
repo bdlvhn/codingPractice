@@ -130,3 +130,48 @@ def solution(n, words):
         else:
             wordStack.append(word)
     return [0,0]
+
+
+"""위장"""
+from functools import reduce
+def solution(clothes):
+    dict = {}
+    for cloth in clothes:
+        if dict.get(cloth[1]):
+            dict[cloth[1]] = dict[cloth[1]] + [cloth[0]]
+        else:
+            dict[cloth[1]] = [cloth[0]]
+    return reduce(lambda a,b:a*b,[len(dict[key])+1 for key in dict.keys()]) - 1
+
+
+"""프린터"""
+def solution(priorities, location):
+    p = [(i,v) for i,v in enumerate(priorities)]
+    l = []
+    
+    while p:
+        a = p.pop(0)
+        if not p:
+            l.append(a)
+            break
+            
+        if a[1]>=max([j[1] for j in p]):
+            l.append(a)
+        else:
+            p.append(a)
+    return l.index((location,priorities[location]))+1
+ """참고 코드
+ def solution(priorities, location):
+    queue =  [(i,p) for i,p in enumerate(priorities)]
+    answer = 0
+    while True:
+        cur = queue.pop(0)
+        if any(cur[1] < q[1] for q in queue):
+            queue.append(cur)
+        else:
+            answer += 1
+            if cur[0] == location:
+                return answer
+"""
+    
+    
