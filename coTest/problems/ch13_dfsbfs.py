@@ -2,36 +2,28 @@ import time
 
 
 # Q15 : 특정 거리의 도시 찾기
-def q15():
-    n, m, k, x = map(int, input().split())
-    road = [[] for _ in range(n + 1)]
-    dist = [1e9] * (n + 1)
-    for _ in range(m):
-        a, b = map(int, input().split())
-        road[a].append(b)
-
-    for i in road[x]:
-        dist[i] = min(1, dist[i])
-
-    def departure(d, x):
-        for j in road[x]:  # x와 이어진 도시
-            if road[j]:
-                departure(d + 1, j)
-            else:
-                dist[j] = min(d + 1, dist[j])
-
-    departure(0, x)
-
-    cnt = 0
-    for i, v in enumerate(dist):
-        if v == k:
-            print(i)
-            cnt += 1
-    if cnt == 0:
-        print(-1)
-
-
-# q15()
+import sys
+input = sys.stdin.readline
+from collections import deque
+n,m,k,x = map(int,input().split())
+graph = [[] for _ in range(n+1)]
+answer = [-1] * (n+1)
+answer[x] = 0 
+for _ in range(m):
+    a, b = list(map(int,input().split()))
+    graph[a].append(b)
+que = deque([x])
+while que:
+    now = que.popleft()
+    for nxt in graph[now]:
+        if answer[nxt] == -1:
+            answer[nxt] = answer[now] + 1 
+            que.append(nxt) 
+for i in range(n+1):
+    if answer[i] == k:
+        print(i)
+if k not in answer:
+    print(-1)
 
 # Q16 : 연구소 (! 시간 초과)
 from collections import deque
@@ -308,3 +300,65 @@ def q20():
 
 print(q20())
 
+#Q21 :
+import sys
+from collections import deque
+input = sys.stdin.readline
+n, l, r = map(int, input().split())
+board = []
+for _ in range(n):
+    board.append(list(map(int, input().split())))
+dx, dy = [1, 0, -1, 0], [0, 1, 0, -1]
+
+def bfs(x, y):
+    q = deque([[x, y]])
+    check[x][y] += 1
+    temp = [[x, y]]
+    sum_bfs = 0
+    len_bfs = 0
+
+    while q:
+        ax, ay = q.popleft()
+        for i in range(4):
+            nx, ny = ax + dx[i], ay + dy[i]
+            if nx >= 0 and nx < n and ny >= 0 and ny < n and check[nx][
+                    ny] == -1:
+                diff = abs(board[ax][ay] - board[nx][ny])
+                if diff >= l and diff <= r:
+                    check[nx][ny] += 1
+                    temp.append([nx, ny])
+                    sum_bfs += board[nx][ny]
+                    len_bfs += 1
+                    q.append([nx, ny])
+
+    if len(temp) > 1:
+        return temp, int(sum_bfs / len_bfs)
+    else:
+        return
+
+
+def move_union(unions):
+    for union in unions:
+        if union:
+            for country in union[0]:
+                x, y = country
+                board[x][y] = union[1]
+
+cnt = 0
+while 1:
+    check = [[-1] * n for _ in range(n)]
+    unions = []
+
+    for i in range(n):
+        for j in range(n):
+          if check[i][j]==-1:
+            a = bfs(i, j)
+            if a:
+                unions.append(a)
+
+    if unions:
+        move_union(unions)
+        cnt += 1
+    else:
+        print(cnt)
+        break
