@@ -1,15 +1,9 @@
-import time
-
-### Ch04, 예제 4-1: 상하좌우
-def solution_01():
+def ch04_q01():
   n = int(input())
   plan = input().split(" ")
   loc = [1,1]
   loc_dict = {"L":[0,-1],"R":[0,1],"U":[-1,0],"D":[1,0]}
   
-  global start_time
-  start_time = time.time()
-
   for d in plan:
     loc = [a+b for a,b in zip(loc,loc_dict[d])]
     if loc[0]>n:
@@ -24,19 +18,11 @@ def solution_01():
   
   return ' '.join(list(map(str,loc)))
 
-# print(solution_01())
-# end_time = time.time()
-# print("excuted time: ",end_time-start_time)
+# print(ch04_q01())
 
-
-
-### Ch04, 예제 4-2: 시각
-def solution_02():
+def ch04_q02():
   n = int(input())
   cnt = 0
-
-  global start_time
-  start_time = time.time()
 
   for i in range(n+1):
     for j in range(60):
@@ -46,74 +32,64 @@ def solution_02():
   
   return cnt
 
-# print(solution_02())
-# end_time = time.time()
-# print("excuted time: ",end_time-start_time)
+# print(ch04_q02())
 
-
-
-### Ch04, 4-2: 왕실의 나이트
-def solution_03():
+def ch04_q03():
   n = input()
   loc = [int(ord(n[0]))-int(ord('a')),int(n[1])]
   cnt = 0
-
-  global start_time
-  start_time = time.time()
 
   cases = [[2,1],[2,-1],[-2,1],[-2,-1],
            [1,2],[1,-2],[-1,2],[-1,-2]]
 
   for case in cases:
     result = [a+b for a,b in zip(loc,case)]
-    if result[0] > 0 & result[0] < 9 & result[1] > 0 & result[1] < 9:
+    if result[0] > 0 and result[0] < 9 and result[1] > 0 and result[1] < 9:
       cnt += 1
 
   return cnt
 
-# print(solution_03())
-# end_time = time.time()
-# print("excuted time: ",end_time-start_time)
+# print(ch04_q03())
 
+def ch04_q04():
+  n, m = map(int,input().split(" "))
+  x, y, direction = map(int,input().split(" "))
+  d = [[0]*m for _ in range(n)]
+  d[x][y] = 1
 
+  board = []
+  for i in range(n):
+    board.append([*map(int,input().split())])
 
-### Ch04, 4-3: 게임 개발
-n, m = map(int,input().split(" "))
-x, y, direction = map(int,input().split(" "))
-d = [[0]*m for _ in range(n)]
-d[x][y]=1
+  dx, dy = [-1,0,1,0], [0,1,0,-1]
 
-board = []
-for i in range(n):
-  board.append(list(map(int,input().split())))
+  def turn_left():
+    global direction
+    direction = (direction-1)%4
 
-dx, dy = [-1,0,1,0], [0,1,0,-1]
+  count = 1
+  turn_time = 0
+  while True:
+    turn_left()
+    nx, ny = x + dx[direction], y + dy[direction]
 
-def turn_left():
-  global direction
-  direction = (direction-1)%4
-
-count = 1
-turn_time = 0
-while True:
-  turn_left()
-  nx, ny = x + dx[direction], y + dy[direction]
-
-  if d[nx][ny] == 0 and board[nx][ny]==0:
-    x,y = nx,ny
-    d[x][y] = 1
-    count += 1
-    turn_time = 0
-    continue
-  else:
-    turn_time += 1
-  
-  if turn_time==4:
-    nx, ny = x - dx[direction], y - dy[direction]
-    if board[nx][ny]==0:
-      x, y = nx, ny
+    if d[nx][ny] == 0 and board[nx][ny]==0:
+      x,y = nx,ny
+      d[x][y] = 1
+      count += 1
+      turn_time = 0
+      continue
     else:
-      break
-    turn_time = 0
+      turn_time += 1
+    
+    if turn_time == 4:
+      nx, ny = x - dx[direction], y - dy[direction]
+      if board[nx][ny] == 0:
+        x, y = nx, ny
+      else:
+        break
+      turn_time = 0
 
-print(count)
+  return count
+
+# print(ch04_q04())
