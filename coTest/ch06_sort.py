@@ -1,6 +1,4 @@
-array = [7,5,9,0,3,1,6,2,4,8]
-
-### 6,선택 정렬 예제, time complexity : O(N^2)
+### 선택 정렬, time complexity : O(N^2)
 
 def sort_selection(array):
   for i in range(len(array)):
@@ -8,12 +6,9 @@ def sort_selection(array):
     for j in range(1,i):
       if array[min_idx]>array[j]:
         min_idx = j
-    array[i],array[min_idx] = array[min_idx],array[i]\
+    array[i],array[min_idx] = array[min_idx],array[i]
 
-# sort_selection(array)
-# print(array)
-
-### 6,삽입 정렬 예제, time complexity : O(N^2)
+### 삽입 정렬, time complexity : O(N^2)
 
 def sort_insert(array):
   for i in range(1,len(array)):
@@ -25,10 +20,7 @@ def sort_insert(array):
   
   return array
 
-# sort_insert(array)
-# print(array)
-
-### 6,퀵 정렬 예제, time complexity : O(NlogN)
+### 퀵 정렬, time complexity : O(NlogN)
 
 def sort_quick(array,start,end):
   if start >= end:
@@ -48,10 +40,7 @@ def sort_quick(array,start,end):
   sort_quick(array, start, right-1)
   sort_quick(array, right+1, end)
 
-# sort_quick(array, 0, len(array)-1)
-# print(array)
-
-### 6,퀵 정렬 예제 2, time complexity : O(NlogN)
+### 6,퀵 정렬 - 2, time complexity : O(NlogN)
 
 def quick_sort(array):
 
@@ -66,71 +55,50 @@ def quick_sort(array):
 
   return quick_sort(left_side) + [pivot] + quick_sort(right_side)
 
-# print(quick_sort(array))
+### 6, 계수 정렬, time complexity : O(N+K)
 
-### 6, 계수 정렬 예제, time complexity : O(N+K)
+def count_sort(array):
+  count = [0] * (max(array) + 1)
 
-# array = [7,5,9,0,3,1,6,2,9,1,4,8,0,5,2]
-# count = [0] * (max(array) + 1)
+  for i in range(len(array)):
+    count[array[i]] += 1
 
-# for i in range(len(array)):
-#   count[array[i]] += 1
+  for i in range(len(count)):
+    for j in range(count[i]):
+      print(i, end = ' ')
 
-# for i in range(len(count)):
-#   for j in range(count[i]):
-#     print(i, end = ' ')
+def ch06_q02():
+  n = int(input())
+  array = []
+  for _ in range(n):
+    array.append(int(input()))
 
+  array.sort(reverse=True)
+  return ' '.join(map(str,array))
 
+# print(ch06_q02())
 
-### 6,2 위에서 아래로
+def ch06_q03():
+  n = int(input())
+  array = []
+  for _ in range(n):
+    array.append(input().split())
+  
+  return ' '.join([*map(lambda x:x[0],sorted(array,key=lambda x:x[1]))])
 
-# n = int(input())
-# array = []
-# for _ in range(n):
-#   array.append(int(input()))
+# print(ch06_q03())
 
-def qck_srt(array):
-  if len(array) <= 1:
-    return array
+def ch06_q04():
+  n,k = map(int,input().split())
+  listA = [*map(int,input().split())]
+  listB = [*map(int,input().split())]
+  listA.sort()
+  listB.sort(reverse=True)
+  for i in range(k):
+    if listA[i]<listB[i]:
+      listA[i], listB[i] = listB[i], listA[i]
+    else:
+      break
+  return sum(listA)
 
-  pivot = array[0]
-  tail = array[1:]
-
-  left_side = [x for x in tail if x > pivot]
-  right_side = [x for x in tail if x <= pivot]
-
-  return qck_srt(left_side) + [pivot] + qck_srt(right_side)
-
-# print(qck_srt(array))
-
-
-
-### 6,3 성적이 낮은 순서로 학생 출력하기
-# n = int(input())
-# array = []
-# for _ in range(n):
-#   a,b = input().split()
-#   array.append((a,int(b)))
-
-# def sort_student(array):
-#   return ' '.join(list(map(lambda x:x[0],sorted(array,key = lambda x : x[1]))))
-
-# print(sort_student(array))
-
-
-
-### 6,4 두 배열의 원소 교체
-n,k = map(int,input().split())
-A = list(map(int,input().split()))
-B = list(map(int,input().split()))
-
-A.sort()
-B.sort(reverse=True)
-
-for i in range(k):
-  if A[i] < B[i]:
-    A[i], B[i] = B[i], A[i]
-  else:
-    break
-
-print(sum(A))
+print(ch06_q04())
